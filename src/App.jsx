@@ -8,57 +8,65 @@ const supabase = createClient(
 
 const BASE_PLAN = [
   // Admission
-  { id:"qudurat-exam",  title:"Qudurat",                        cat:"admission",  type:"exam",      xp:50,  study_months:1,  start_default:"2026-06", exam_default:"2026-07", detail:"MBA requirement · qiyas.sa" },
-  { id:"gmat-exam",     title:"GMAT",                           cat:"admission",  type:"exam",      xp:0,   study_months:3,  start_default:"2026-08", exam_default:"2026-11", detail:"mba.com · study after IELTS" },
-  { id:"ielts-exam",    title:"IELTS",                          cat:"admission",  type:"exam",      xp:50,  study_months:null,start_default:null,      exam_default:"2026-11", detail:"2 weeks review only" },
-  { id:"mba-app",       title:"MBA Application",                cat:"academic",   type:"milestone", xp:0,   study_months:null,start_default:null,      exam_default:"2026-12", detail:"Submit to KSU" },
-  { id:"mba-start",     title:"🎓 MBA STARTS",                  cat:"academic",   type:"milestone", xp:0,   study_months:null,start_default:null,      exam_default:"2027-09", detail:"KSU · 2 years · Finance track · 80,000 SAR" },
+  { id:"qudurat-exam",   title:"Qudurat",                        cat:"admission",  type:"exam",      xp:50,  study_months:1,  start_default:"2026-06", exam_default:"2026-07", detail:"MBA requirement · qiyas.sa" },
+  { id:"gmat-exam",      title:"GMAT",                           cat:"admission",  type:"exam",      xp:0,   study_months:3,  start_default:"2026-08", exam_default:"2026-11", detail:"mba.com · study after IELTS" },
+  { id:"ielts-exam",     title:"IELTS",                          cat:"admission",  type:"exam",      xp:50,  study_months:null,start_default:null,      exam_default:"2026-11", detail:"2 weeks review only" },
+  { id:"mba-app",        title:"MBA Application",                cat:"academic",   type:"milestone", xp:0,   study_months:null,start_default:null,      exam_default:"2026-12", detail:"Submit to KSU" },
+  { id:"mba-start",      title:"🎓 MBA STARTS",                  cat:"academic",   type:"milestone", xp:0,   study_months:null,start_default:null,      exam_default:"2027-09", detail:"KSU · 2 years · Finance track · 80,000 SAR" },
   // Management
-  { id:"strategy",      title:"Strategy & Business Planning",   cat:"management", type:"course",    xp:50,  study_months:null,start_default:null,      exam_default:"2026-08", detail:"5-day course" },
-  { id:"kpi",           title:"KPI / Performance Management",   cat:"management", type:"course",    xp:50,  study_months:null,start_default:null,      exam_default:"2026-12", detail:"5-day course" },
+  { id:"strategy",       title:"Strategy & Business Planning",   cat:"management", type:"course",    xp:50,  study_months:null,start_default:null,      exam_default:"2026-08", detail:"5-day course" },
+  { id:"kpi",            title:"KPI / Performance Management",   cat:"management", type:"course",    xp:50,  study_months:null,start_default:null,      exam_default:"2026-12", detail:"5-day course" },
   // Leadership
-  { id:"misk-end",      title:"Misk 10X Leaders",               cat:"leadership", type:"milestone", xp:100, study_months:null,start_default:"2026-08", exam_default:"2027-01", detail:"Aug 2026 – Jan 2027 · CMI Certified · 11,500 SAR" },
+  { id:"misk-end",       title:"Misk 10X Leaders",               cat:"leadership", type:"milestone", xp:100, study_months:null,start_default:"2026-08", exam_default:"2027-01", detail:"Aug 2026 – Jan 2027 · CMI Certified · 11,500 SAR" },
   // Tech / AI
-  { id:"alteryx-core",  title:"Alteryx Designer Core",          cat:"tech",       type:"exam",      xp:100, study_months:1,  start_default:"2026-10", exam_default:"2026-11", detail:"Free · Alteryx Academy · Must Have for CA analytics" },
-  { id:"aigp-exam",     title:"AIGP",                           cat:"tech",       type:"exam",      xp:100, study_months:3,  start_default:"2026-09", exam_default:"2026-12", detail:"AI Governance · IAPP · $799 non-member" },
-  { id:"pl300-exam",    title:"Power BI PL-300",                cat:"tech",       type:"exam",      xp:100, study_months:3,  start_default:"2026-10", exam_default:"2027-01", detail:"Microsoft · ~$165 · Must Have for CA dashboards" },
-  { id:"togaf-exam",    title:"TOGAF Foundation",               cat:"tech",       type:"exam",      xp:100, study_months:3,  start_default:"2027-07", exam_default:"2027-10", detail:"$400 · The Open Group · Part 1" },
+  { id:"alteryx-core",   title:"Alteryx Designer Core",          cat:"tech",       type:"exam",      xp:100, study_months:1,  start_default:"2026-10", exam_default:"2026-11", detail:"Free · Alteryx Academy · Must Have for CA analytics" },
+  { id:"aigp-exam",      title:"AIGP",                           cat:"tech",       type:"exam",      xp:100, study_months:3,  start_default:"2026-09", exam_default:"2026-12", detail:"AI Governance · IAPP · $799 non-member" },
+  { id:"pl300-exam",     title:"Power BI PL-300",                cat:"tech",       type:"exam",      xp:100, study_months:3,  start_default:"2026-10", exam_default:"2027-01", detail:"Microsoft · ~$165 · Must Have for CA dashboards" },
+  { id:"togaf-exam",     title:"TOGAF Foundation",               cat:"tech",       type:"exam",      xp:100, study_months:3,  start_default:"2027-07", exam_default:"2027-10", detail:"$400 · The Open Group · Part 1" },
   // Audit
-  { id:"coso",          title:"COSO Internal Control & ERM",    cat:"audit",      type:"course",    xp:100, study_months:null,start_default:null,      exam_default:"2027-01", detail:"5-day course · company coverage possible" },
-  { id:"control",       title:"Control Design & Effectiveness", cat:"audit",      type:"course",    xp:100, study_months:null,start_default:null,      exam_default:"2027-01", detail:"5-day course · company coverage possible" },
-  { id:"iia-literacy",  title:"IIA Data Literacy Certificate",  cat:"audit",      type:"exam",      xp:50,  study_months:1,  start_default:"2027-02", exam_default:"2027-03", detail:"IIA · self-paced · member pricing" },
-  { id:"iia-analytics", title:"IIA Data Analytics Certificate", cat:"audit",      type:"exam",      xp:50,  study_months:1,  start_default:"2027-03", exam_default:"2027-04", detail:"IIA · 16 CPE hours · Excel, SQL, Power BI, AI" },
-  { id:"qaip",          title:"QAIP / Internal Audit Quality",  cat:"audit",      type:"course",    xp:50,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"5-day course · completes audit profile" },
-  { id:"cobit",         title:"COBIT Foundation",               cat:"audit",      type:"exam",      xp:50,  study_months:1,  start_default:"2027-10", exam_default:"2027-11", detail:"ISACA · $175 · governance track" },
+  { id:"coso",           title:"COSO Internal Control & ERM",    cat:"audit",      type:"course",    xp:100, study_months:null,start_default:null,      exam_default:"2027-01", detail:"5-day course · company coverage possible" },
+  { id:"control",        title:"Control Design & Effectiveness", cat:"audit",      type:"course",    xp:100, study_months:null,start_default:null,      exam_default:"2027-01", detail:"5-day course · company coverage possible" },
+  { id:"iia-literacy",   title:"IIA Data Literacy Certificate",  cat:"audit",      type:"exam",      xp:50,  study_months:1,  start_default:"2027-02", exam_default:"2027-03", detail:"IIA · self-paced · member pricing" },
+  { id:"iia-analytics",  title:"IIA Data Analytics Certificate", cat:"audit",      type:"exam",      xp:50,  study_months:1,  start_default:"2027-03", exam_default:"2027-04", detail:"IIA · 16 CPE hours · Excel, SQL, Power BI, AI" },
+  { id:"qaip",           title:"QAIP / Internal Audit Quality",  cat:"audit",      type:"course",    xp:50,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"5-day course · completes audit profile" },
+  { id:"cobit",          title:"COBIT Foundation",               cat:"audit",      type:"exam",      xp:50,  study_months:1,  start_default:"2027-10", exam_default:"2027-11", detail:"ISACA · $175 · governance track" },
+  { id:"cisa-exam",      title:"CISA",                           cat:"audit",      type:"exam",      xp:150, study_months:3,  start_default:"2029-01", exam_default:"2029-04", detail:"ISACA · $575 member · IT Audit · after CIA + MBA" },
   // CIA
-  { id:"cia1-exam",     title:"CIA Part 1",                     cat:"cia",        type:"exam",      xp:200, study_months:3,  start_default:"2027-01", exam_default:"2027-04", detail:"IIA member $255 · IIA Standards & Ethics & Governance" },
-  { id:"cia2-exam",     title:"CIA Part 2",                     cat:"cia",        type:"exam",      xp:200, study_months:3,  start_default:"2027-04", exam_default:"2027-07", detail:"IIA member $255 · Internal Audit Practice" },
-  { id:"cia3-exam",     title:"CIA Part 3",                     cat:"cia",        type:"exam",      xp:200, study_months:3,  start_default:"2027-12", exam_default:"2028-03", detail:"IIA member $255 · Business Knowledge · broadest content" },
-  { id:"cia-done",      title:"🏆 CIA COMPLETE",                cat:"cia",        type:"milestone", xp:0,   study_months:null,start_default:null,      exam_default:"2028-03", detail:"All 3 parts · 24-month experience ✅ · Official CIA 🎉" },
-  { id:"cisa-exam",     title:"CISA",                           cat:"audit",      type:"exam",      xp:150, study_months:3,  start_default:"2029-01", exam_default:"2029-04", detail:"ISACA · $575 member · IT Audit · after CIA + MBA" },
+  { id:"cia1-exam",      title:"CIA Part 1",                     cat:"cia",        type:"exam",      xp:200, study_months:3,  start_default:"2027-01", exam_default:"2027-04", detail:"IIA member $255 · IIA Standards & Ethics & Governance" },
+  { id:"cia2-exam",      title:"CIA Part 2",                     cat:"cia",        type:"exam",      xp:200, study_months:3,  start_default:"2027-04", exam_default:"2027-07", detail:"IIA member $255 · Internal Audit Practice" },
+  { id:"cia3-exam",      title:"CIA Part 3",                     cat:"cia",        type:"exam",      xp:200, study_months:3,  start_default:"2027-12", exam_default:"2028-03", detail:"IIA member $255 · Business Knowledge · broadest content" },
+  { id:"cia-done",       title:"🏆 CIA COMPLETE",                cat:"cia",        type:"milestone", xp:0,   study_months:null,start_default:null,      exam_default:"2028-03", detail:"All 3 parts · 24-month experience ✅ · Official CIA 🎉" },
   // Brand Track
-  { id:"brand-post-1",  title:"LinkedIn Post #1 — ATHEER PoC", cat:"brand",      type:"brand",     xp:50,  study_months:null,start_default:null,      exam_default:"2026-06", detail:"✅ Done! First public post on AI in Internal Audit · Jun 2026" },
-  { id:"brand-post-2",  title:"LinkedIn Post #2 — GenAI in IA",cat:"brand",      type:"brand",     xp:50,  study_months:null,start_default:null,      exam_default:"2026-09", detail:"Q3 2026 · lesson from GenAI in Internal Audit" },
-  { id:"brand-session-1",title:"Internal Knowledge Session",   cat:"brand",      type:"brand",     xp:75,  study_months:null,start_default:null,      exam_default:"2026-10", detail:"Lunch & Learn or Knowledge Sharing · internal only" },
-  { id:"brand-post-3",  title:"LinkedIn Post #3 — CA Framework",cat:"brand",     type:"brand",     xp:50,  study_months:null,start_default:null,      exam_default:"2026-12", detail:"Q4 2026 · framework from Continuous Auditing" },
-  { id:"brand-post-4",  title:"LinkedIn Post #4 — AIGP Lessons",cat:"brand",     type:"brand",     xp:50,  study_months:null,start_default:null,      exam_default:"2027-01", detail:"Q1 2027 · something learned from AIGP journey" },
-  { id:"saudi-speakers",title:"Saudi Speakers Fellowship",     cat:"brand",      type:"brand",     xp:100, study_months:null,start_default:"2026-08", exam_default:"2027-02", detail:"saudispeakers.info/fellowship · Opens Aug 8 2026 · Executive Presence & Thought Leadership" },
-  { id:"brand-article", title:"Professional Article",          cat:"brand",      type:"brand",     xp:100, study_months:null,start_default:null,      exam_default:"2027-06", detail:"e.g. Continuous Auditing: From Data to Assurance · or AI Governance in IA" },
-  { id:"brand-pres-1",  title:"Internal Formal Presentation",  cat:"brand",      type:"brand",     xp:75,  study_months:null,start_default:null,      exam_default:"2027-06", detail:"Real presentation · not a meeting · inside Mobily" },
-  { id:"brand-conf-1",  title:"Conference Attendance",         cat:"brand",      type:"brand",     xp:75,  study_months:null,start_default:null,      exam_default:"2027-09", detail:"One professional conference · attendance only · IIA or ISACA" },
-  { id:"brand-speaker", title:"Conference Speaker",            cat:"brand",      type:"brand",     xp:150, study_months:null,start_default:null,      exam_default:"2028-06", detail:"Even a small session · after CIA + MBA" },
-  { id:"brand-playbook",title:"Publish CA Playbook",           cat:"brand",      type:"brand",     xp:150, study_months:null,start_default:null,      exam_default:"2028-09", detail:"Clean version of the Continuous Auditing Playbook" },
-  { id:"brand-webinar", title:"Webinar",                       cat:"brand",      type:"brand",     xp:100, study_months:null,start_default:null,      exam_default:"2028-11", detail:"Online session · Audit + AI topic" },
-  // Readings
-  { id:"read-iia-std",  title:"IIA Global Standards 2024",     cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2026-12", detail:"Read before CIA Part 1 · theiia.org/en/standards/" },
-  { id:"read-gtag",     title:"GTAG: Data Analysis for IA",    cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2026-11", detail:"Read with Alteryx · theiia.org/gtag" },
-  { id:"read-coso-ic",  title:"COSO Internal Control 2013",    cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-01", detail:"Read with COSO course · coso.org" },
-  { id:"read-coso-erm", title:"COSO ERM 2017",                 cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-01", detail:"Read with COSO course · coso.org" },
-  { id:"read-da-gpg",   title:"IIA Data Analytics Skills GPG", cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-04", detail:"Read with IIA Data Analytics Certificate · May 2026" },
-  { id:"read-comp-gpg", title:"IIA Competency Framework GPG",  cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-04", detail:"Read with CIA Part 1 · theiia.org" },
-  { id:"read-ca-guide", title:"IIA CA Practice Guide",         cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"Read with QAIP · theiia.org/resources" },
-  { id:"read-acfe",     title:"ACFE Report to the Nations",    cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"Read with CIA Part 2 · acfe.com · biennial" },
+  { id:"brand-post-1",   title:"LinkedIn Post #1 — ATHEER PoC", cat:"brand",      type:"brand",     xp:30,  study_months:null,start_default:null,      exam_default:"2026-06", detail:"✅ Done! First public post on AI in Internal Audit · Jun 2026" },
+  { id:"brand-post-2",   title:"LinkedIn Post #2 — GenAI in IA",cat:"brand",      type:"brand",     xp:30,  study_months:null,start_default:null,      exam_default:"2026-09", detail:"Q3 2026 · lesson from GenAI in Internal Audit" },
+  { id:"brand-session-1",title:"Internal Knowledge Session",    cat:"brand",      type:"brand",     xp:50,  study_months:null,start_default:null,      exam_default:"2026-10", detail:"Lunch & Learn or Knowledge Sharing · internal only" },
+  { id:"brand-post-3",   title:"LinkedIn Post #3 — CA Framework",cat:"brand",     type:"brand",     xp:30,  study_months:null,start_default:null,      exam_default:"2026-12", detail:"Q4 2026 · framework from Continuous Auditing" },
+  { id:"brand-post-4",   title:"LinkedIn Post #4 — AIGP Lessons",cat:"brand",     type:"brand",     xp:30,  study_months:null,start_default:null,      exam_default:"2027-01", detail:"Q1 2027 · something learned from AIGP journey" },
+  { id:"saudi-speakers", title:"Saudi Speakers Fellowship",     cat:"brand",      type:"brand",     xp:100, study_months:null,start_default:"2026-08", exam_default:"2027-02", detail:"saudispeakers.info/fellowship · Opens Aug 8 2026 · Executive Presence & Thought Leadership" },
+  { id:"brand-article",  title:"Professional Article",          cat:"brand",      type:"brand",     xp:100, study_months:null,start_default:null,      exam_default:"2027-06", detail:"e.g. Continuous Auditing: From Data to Assurance · or AI Governance in IA" },
+  { id:"brand-pres-1",   title:"Internal Formal Presentation",  cat:"brand",      type:"brand",     xp:50,  study_months:null,start_default:null,      exam_default:"2027-06", detail:"Real presentation · not a meeting · inside Mobily" },
+  { id:"brand-conf-1",   title:"Conference Attendance",         cat:"brand",      type:"brand",     xp:50,  study_months:null,start_default:null,      exam_default:"2027-09", detail:"One professional conference · IIA or ISACA" },
+  { id:"brand-speaker",  title:"Conference Speaker",            cat:"brand",      type:"brand",     xp:125, study_months:null,start_default:null,      exam_default:"2028-06", detail:"Even a small session · after CIA + MBA" },
+  { id:"brand-playbook", title:"Publish CA Playbook",           cat:"brand",      type:"brand",     xp:125, study_months:null,start_default:null,      exam_default:"2028-09", detail:"Clean version of the Continuous Auditing Playbook" },
+  { id:"brand-webinar",  title:"Webinar",                       cat:"brand",      type:"brand",     xp:100, study_months:null,start_default:null,      exam_default:"2028-11", detail:"Online session · Audit + AI topic" },
+  // Readings — existing
+  { id:"read-iia-std",   title:"IIA Global Standards 2024",     cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2026-12", detail:"Read before CIA Part 1 · theiia.org/en/standards/" },
+  { id:"read-gtag",      title:"GTAG: Data Analysis for IA",    cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2026-11", detail:"Read with Alteryx · theiia.org/gtag" },
+  { id:"read-coso-ic",   title:"COSO Internal Control 2013",    cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-01", detail:"Read with COSO course · coso.org" },
+  { id:"read-coso-erm",  title:"COSO ERM 2017",                 cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-01", detail:"Read with COSO course · coso.org" },
+  { id:"read-da-gpg",    title:"IIA Data Analytics Skills GPG", cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-04", detail:"Read with IIA Data Analytics Certificate" },
+  { id:"read-comp-gpg",  title:"IIA Competency Framework GPG",  cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-04", detail:"Read with CIA Part 1 · theiia.org" },
+  { id:"read-ca-guide",  title:"IIA CA Practice Guide",         cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"Read with QAIP · theiia.org/resources" },
+  { id:"read-acfe",      title:"ACFE Report to the Nations",    cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"Read with CIA Part 2 · acfe.com" },
+  // Readings — IA Excellence (new)
+  { id:"read-ia-strat",  title:"IIA PG: IA Strategic Plan",     cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-04", detail:"Read with CIA Part 1 · IA planning & strategy" },
+  { id:"read-annual-plan",title:"IIA PG: Annual Audit Plan",    cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-04", detail:"Read with CIA Part 1 · risk-based audit planning" },
+  { id:"read-staffing",  title:"IIA PG: Staffing IA Activity",  cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"Read with QAIP · resource allocation & team building" },
+  { id:"read-reporting", title:"IIA PG: Audit Reports",         cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"Read with CIA Part 2 · executive reporting skills" },
+  { id:"read-qaip-man",  title:"IIA Quality Assessment Manual", cat:"reading",    type:"reading",   xp:25,  study_months:null,start_default:null,      exam_default:"2027-07", detail:"Read with QAIP · full quality assurance framework" },
 ];
+
+const TOTAL_POSSIBLE = BASE_PLAN.filter(p=>p.xp>0).reduce((a,b)=>a+b.xp,0);
 
 const CAT = {
   admission:  { bg:"#FEF3C7", border:"#D97706", text:"#78350F", dot:"#D97706", label:"Admission",  icon:"🎓" },
@@ -81,44 +89,46 @@ const TYPE_META = {
   brand:     { label:"Brand",     bg:"#FFF7ED", color:"#EA580C" },
 };
 
-// Digital Assurance Leader requirements
 const DAL_REQUIRES = [
-  { id:"cia-done",      label:"CIA Complete" },
-  { id:"aigp-exam",     label:"AIGP" },
-  { id:"mba-start",     label:"MBA Started" },
-  { id:"brand-playbook",label:"CA Playbook Published" },
-  { id:"iia-analytics", label:"Audit Analytics Skills" },
-  { id:"togaf-exam",    label:"Technology Governance (TOGAF)" },
-  { id:"brand-speaker", label:"Conference Speaker" },
-  { id:"brand-article", label:"Professional Article" },
+  { id:"cia-done",       label:"CIA Complete" },
+  { id:"aigp-exam",      label:"AIGP" },
+  { id:"mba-start",      label:"MBA Started" },
+  { id:"brand-playbook", label:"CA Playbook Published" },
+  { id:"iia-analytics",  label:"Audit Analytics Skills" },
+  { id:"togaf-exam",     label:"Technology Governance (TOGAF)" },
+  { id:"brand-speaker",  label:"Conference Speaker" },
+  { id:"brand-article",  label:"Professional Article" },
 ];
 
 const BADGES = [
-  // Brand milestones
-  { id:"badge-first-post",  icon:"✍️", name:"First Public Post",        desc:"Published first post on AI in Internal Audit · ✅ Jun 2026", requires:["brand-post-1"], color:"#EA580C" },
-  { id:"badge-contributor", icon:"🥉", name:"Knowledge Contributor",    desc:"4 LinkedIn posts + 1 internal session",                      requires:["brand-post-1","brand-post-2","brand-post-3","brand-post-4","brand-session-1"], color:"#EA580C" },
-  { id:"badge-thought",     icon:"🥈", name:"Emerging Thought Leader",  desc:"Article + formal presentation + conference attendance",       requires:["brand-article","brand-pres-1","brand-conf-1"], color:"#EA580C" },
-  { id:"badge-innovation",  icon:"🥇", name:"Audit Innovation Leader",  desc:"Conference speaker + webinar + CA Playbook published",        requires:["brand-speaker","brand-webinar","brand-playbook"], color:"#EA580C" },
-  // Professional
-  { id:"badge-admission",   icon:"🎓", name:"Admission Master",         desc:"Pass Qudurat, IELTS & GMAT",                                  requires:["qudurat-exam","ielts-exam","gmat-exam"], color:"#D97706" },
-  { id:"badge-misk",        icon:"👑", name:"Misk 10X Graduate",        desc:"Complete Misk 10X Leaders program",                           requires:["misk-end"], color:"#DB2777" },
-  { id:"badge-speakers",    icon:"🎤", name:"Saudi Speakers Fellow",    desc:"Complete Saudi Speakers Fellowship",                          requires:["saudi-speakers"], color:"#EA580C" },
-  { id:"badge-aigp",        icon:"🤖", name:"AI Pioneer",               desc:"Pass AIGP certification",                                     requires:["aigp-exam"], color:"#2563EB" },
-  { id:"badge-alteryx",     icon:"⚙️", name:"Alteryx Certified",        desc:"Pass Alteryx Designer Core",                                  requires:["alteryx-core"], color:"#2563EB" },
-  { id:"badge-powerbi",     icon:"📊", name:"Power BI Pro",             desc:"Pass PL-300",                                                 requires:["pl300-exam"], color:"#2563EB" },
-  { id:"badge-audit",       icon:"🔍", name:"Audit Champion",           desc:"Complete all audit courses & certificates",                   requires:["cobit","coso","control","qaip","iia-literacy","iia-analytics"], color:"#7C3AED" },
-  { id:"badge-togaf",       icon:"🏗️", name:"Architect",               desc:"Pass TOGAF Foundation",                                       requires:["togaf-exam"], color:"#2563EB" },
-  { id:"badge-reader",      icon:"📚", name:"Knowledge Base",           desc:"Complete all 8 readings",                                     requires:["read-iia-std","read-coso-ic","read-coso-erm","read-gtag","read-ca-guide","read-comp-gpg","read-da-gpg","read-acfe"], color:"#15803D" },
-  { id:"badge-cia1",        icon:"⭐", name:"CIA Part 1",               desc:"Pass CIA Part 1",                                             requires:["cia1-exam"], color:"#DC2626" },
-  { id:"badge-cia2",        icon:"⭐⭐","name":"CIA Parts 1 & 2",        desc:"Pass CIA Parts 1 and 2",                                      requires:["cia1-exam","cia2-exam"], color:"#DC2626" },
-  { id:"badge-cia",         icon:"🏆", name:"CIA Legend",               desc:"Complete all 3 CIA parts",                                    requires:["cia1-exam","cia2-exam","cia3-exam"], color:"#DC2626" },
-  { id:"badge-mba",         icon:"🎓", name:"MBA Scholar",              desc:"Start MBA at KSU",                                            requires:["mba-start"], color:"#0D9488" },
+  { id:"badge-first-post",  icon:"✍️", name:"First Public Post",        desc:"Published first post on AI in Internal Audit ✅",             requires:["brand-post-1"],                                                            color:"#EA580C" },
+  { id:"badge-contributor", icon:"🥉", name:"Knowledge Contributor",    desc:"4 LinkedIn posts + 1 internal session",                       requires:["brand-post-1","brand-post-2","brand-post-3","brand-post-4","brand-session-1"], color:"#EA580C" },
+  { id:"badge-thought",     icon:"🥈", name:"Emerging Thought Leader",  desc:"Article + formal presentation + conference attendance",        requires:["brand-article","brand-pres-1","brand-conf-1"],                             color:"#EA580C" },
+  { id:"badge-innovation",  icon:"🥇", name:"Audit Innovation Leader",  desc:"Conference speaker + webinar + CA Playbook published",         requires:["brand-speaker","brand-webinar","brand-playbook"],                          color:"#EA580C" },
+  { id:"badge-admission",   icon:"🎓", name:"Admission Master",         desc:"Pass Qudurat, IELTS & GMAT",                                   requires:["qudurat-exam","ielts-exam","gmat-exam"],                                   color:"#D97706" },
+  { id:"badge-misk",        icon:"👑", name:"Misk 10X Graduate",        desc:"Complete Misk 10X Leaders",                                    requires:["misk-end"],                                                                color:"#DB2777" },
+  { id:"badge-speakers",    icon:"🎤", name:"Saudi Speakers Fellow",    desc:"Complete Saudi Speakers Fellowship",                           requires:["saudi-speakers"],                                                          color:"#EA580C" },
+  { id:"badge-aigp",        icon:"🤖", name:"AI Pioneer",               desc:"Pass AIGP",                                                    requires:["aigp-exam"],                                                               color:"#2563EB" },
+  { id:"badge-alteryx",     icon:"⚙️", name:"Alteryx Certified",        desc:"Pass Alteryx Designer Core",                                   requires:["alteryx-core"],                                                            color:"#2563EB" },
+  { id:"badge-powerbi",     icon:"📊", name:"Power BI Pro",             desc:"Pass PL-300",                                                  requires:["pl300-exam"],                                                              color:"#2563EB" },
+  { id:"badge-audit",       icon:"🔍", name:"Audit Champion",           desc:"Complete all audit courses & certificates",                    requires:["cobit","coso","control","qaip","iia-literacy","iia-analytics"],            color:"#7C3AED" },
+  { id:"badge-togaf",       icon:"🏗️", name:"Architect",               desc:"Pass TOGAF Foundation",                                        requires:["togaf-exam"],                                                              color:"#2563EB" },
+  { id:"badge-reader",      icon:"📚", name:"Knowledge Base",           desc:"Complete all 13 readings",                                     requires:["read-iia-std","read-coso-ic","read-coso-erm","read-gtag","read-ca-guide","read-comp-gpg","read-da-gpg","read-acfe","read-ia-strat","read-annual-plan","read-staffing","read-reporting","read-qaip-man"], color:"#15803D" },
+  { id:"badge-cia1",        icon:"⭐", name:"CIA Part 1",               desc:"Pass CIA Part 1",                                              requires:["cia1-exam"],                                                               color:"#DC2626" },
+  { id:"badge-cia2",        icon:"⭐⭐","name":"CIA Parts 1 & 2",        desc:"Pass CIA Parts 1 and 2",                                       requires:["cia1-exam","cia2-exam"],                                                   color:"#DC2626" },
+  { id:"badge-cia",         icon:"🏆", name:"CIA Legend",               desc:"Complete all 3 CIA parts",                                     requires:["cia1-exam","cia2-exam","cia3-exam"],                                       color:"#DC2626" },
+  { id:"badge-mba",         icon:"🎓", name:"MBA Scholar",              desc:"Start MBA at KSU",                                             requires:["mba-start"],                                                               color:"#0D9488" },
 ];
 
 const REWARDS = [
-  { xp:500,  icon:"🧖‍♀️", title:"Luxury Spa Day",  bg:"#DCFCE7", color:"#14532D", border:"#16A34A" },
-  { xp:1000, icon:"💛",  title:"Gold Bracelet",   bg:"#FEF9C3", color:"#78350F", border:"#D97706" },
-  { xp:2000, icon:"✈️",  title:"Trip 🏆",          bg:"#EDE9FE", color:"#3B0764", border:"#7C3AED" },
+  { xp:50,   icon:"☕",  title:"مشروبك المفضل",    bg:"#FFF7ED", color:"#7C2D12", border:"#EA580C" },
+  { xp:150,  icon:"🍰",  title:"كيكة أو عشاء برا", bg:"#FEF3C7", color:"#78350F", border:"#D97706" },
+  { xp:300,  icon:"🛍️",  title:"شراء شيء حبيتيه",  bg:"#EDE9FE", color:"#3B0764", border:"#7C3AED" },
+  { xp:500,  icon:"🧖‍♀️", title:"Luxury Spa Day",   bg:"#DCFCE7", color:"#14532D", border:"#16A34A" },
+  { xp:800,  icon:"💛",  title:"Gold Bracelet",    bg:"#FEF9C3", color:"#78350F", border:"#D97706" },
+  { xp:1200, icon:"🌴",  title:"Day Off كامل",      bg:"#CCFBF1", color:"#134E4A", border:"#0D9488" },
+  { xp:1800, icon:"👗",  title:"Shopping Day",     bg:"#FCE7F3", color:"#831843", border:"#DB2777" },
+  { xp:2500, icon:"✈️",  title:"Trip 🏆",           bg:"#EEF2FF", color:"#3730A3", border:"#6366F1" },
 ];
 
 const addMonths = (ym, n) => {
@@ -143,31 +153,30 @@ const buildCalendar = (plan, overrides) => {
   plan.forEach(p => {
     const examMonth = overrides[p.id] || p.exam_default;
     const startMonth = getStart(p, overrides);
-    entries.push({ ...p, month: examMonth, examMonth, isStudy: false });
+    entries.push({ ...p, month:examMonth, examMonth, isStudy:false });
     if (startMonth && startMonth < examMonth) {
-      let cur = startMonth; let idx = 1;
+      let cur=startMonth, idx=1;
       while (cur < examMonth) {
         entries.push({ ...p, id:`${p.id}-s${idx}`, month:cur, title:`${p.title} — Study`, type:"study", xp:0, isStudy:true, parentId:p.id });
-        cur = addMonths(cur,1); idx++;
+        cur=addMonths(cur,1); idx++;
       }
     }
   });
-  return entries.sort((a,b) => a.month.localeCompare(b.month) || (a.isStudy?-1:1));
+  return entries.sort((a,b)=>a.month.localeCompare(b.month)||(a.isStudy?-1:1));
 };
 const getAllMonths = (plan, overrides) => {
   const set = new Set();
   plan.forEach(p => {
-    const examMonth = overrides[p.id] || p.exam_default;
-    const startMonth = getStart(p, overrides);
-    set.add(examMonth);
-    if (startMonth) { let cur=startMonth; while(cur<=examMonth){set.add(cur);cur=addMonths(cur,1);} }
+    const em = overrides[p.id]||p.exam_default;
+    const sm = getStart(p, overrides);
+    set.add(em);
+    if (sm) { let c=sm; while(c<=em){set.add(c);c=addMonths(c,1);} }
   });
   return [...set].sort();
 };
 const monthOptions = [];
 for(let y=2026;y<=2030;y++) for(let m=1;m<=12;m++)
   monthOptions.push(`${y}-${String(m).padStart(2,"0")}`);
-const TOTAL_POSSIBLE = BASE_PLAN.filter(p=>p.xp>0).reduce((a,b)=>a+b.xp,0);
 
 export default function App() {
   const [done, setDone]             = useState({});
@@ -181,9 +190,12 @@ export default function App() {
   useEffect(() => {
     (async () => {
       const { data } = await supabase.from("pdp_progress").select("*").eq("id","ghada").single();
-      if (data) { setDone(data.done||{}); setOverrides(data.overrides||{}); }
-      // Auto-unlock first post
-      setDone(d => ({ ...d, "brand-post-1": true }));
+      if (data) {
+        setDone({ ...(data.done||{}), "brand-post-1": true });
+        setOverrides(data.overrides||{});
+      } else {
+        setDone({ "brand-post-1": true });
+      }
       setLoaded(true);
     })();
   }, []);
@@ -208,16 +220,17 @@ export default function App() {
     setOverrides(next); saveProgress(done, next);
   };
 
-  const calendar   = useMemo(() => buildCalendar(BASE_PLAN, overrides), [overrides]);
-  const allMonths  = useMemo(() => getAllMonths(BASE_PLAN, overrides), [overrides]);
+  const calendar   = useMemo(()=>buildCalendar(BASE_PLAN,overrides),[overrides]);
+  const allMonths  = useMemo(()=>getAllMonths(BASE_PLAN,overrides),[overrides]);
   const earnedXP   = BASE_PLAN.filter(p=>done[p.id]&&p.xp>0).reduce((a,b)=>a+b.xp,0);
   const pct        = Math.round((earnedXP/TOTAL_POSSIBLE)*100);
-  const unlockedB  = (b) => b.requires.every(r=>done[r]);
-  const unlockedR  = (r) => earnedXP>=r.xp;
-  const dalProgress = DAL_REQUIRES.filter(r=>done[r.id]).length;
+  const unlockedB  = (b)=>b.requires.every(r=>done[r]);
+  const unlockedR  = (r)=>earnedXP>=r.xp;
+  const dalProgress= DAL_REQUIRES.filter(r=>done[r.id]).length;
   const dalPct     = Math.round((dalProgress/DAL_REQUIRES.length)*100);
-  const dalDone    = dalProgress === DAL_REQUIRES.length;
+  const dalDone    = dalProgress===DAL_REQUIRES.length;
   const years      = [...new Set(allMonths.map(m=>m.split("-")[0]))].sort();
+  const nextReward = REWARDS.find(r=>earnedXP<r.xp);
 
   const getMonthItems = (monthId) => {
     const items = calendar.filter(p=>p.month===monthId);
@@ -229,7 +242,7 @@ export default function App() {
   };
   const getLoad = (monthId) => {
     const items = calendar.filter(p=>p.month===monthId);
-    const active = items.filter(i=>i.type==="exam"||i.type==="reading"||i.type==="brand").length;
+    const active = items.filter(i=>["exam","brand","reading"].includes(i.type)).length;
     if (items.length>=4||active>=3) return { bg:"#FEE2E2", border:"#DC2626", label:"Heavy ⚠️" };
     if (items.length>=2||active>=1) return { bg:"#FEF9C3", border:"#D97706", label:"Medium" };
     return { bg:"#F0FDF4", border:"#16A34A", label:"Light" };
@@ -260,12 +273,30 @@ export default function App() {
                 :<><div style={{ width:8,height:8,borderRadius:"50%",background:"#34D399" }}/>Synced</>}
             </div>
           </div>
+
+          {/* XP bar */}
           <div style={{ background:"rgba(255,255,255,0.2)",borderRadius:20,height:10,marginBottom:6,overflow:"hidden" }}>
             <div style={{ height:"100%",borderRadius:20,background:"#FCD34D",width:`${pct}%`,transition:"width 0.5s" }}/>
           </div>
           <div style={{ display:"flex",justifyContent:"space-between",fontSize:11,opacity:0.85,marginBottom:12 }}>
-            <span>⚡ {earnedXP} / {TOTAL_POSSIBLE} XP</span><span>{pct}%</span>
+            <span>⚡ {earnedXP} / {TOTAL_POSSIBLE} XP</span>
+            <span>{pct}%</span>
           </div>
+
+          {/* Next reward teaser */}
+          {nextReward && (
+            <div style={{ background:"rgba(255,255,255,0.15)",borderRadius:10,padding:"7px 12px",marginBottom:12,display:"flex",alignItems:"center",gap:8 }}>
+              <span style={{ fontSize:16 }}>{nextReward.icon}</span>
+              <div style={{ flex:1 }}>
+                <div style={{ fontSize:10,opacity:0.8 }}>Next reward</div>
+                <div style={{ fontSize:12,fontWeight:700 }}>{nextReward.title} — {nextReward.xp - earnedXP} XP to go</div>
+              </div>
+              <div style={{ background:"rgba(255,255,255,0.2)",borderRadius:20,height:5,width:80,overflow:"hidden" }}>
+                <div style={{ height:"100%",background:"#FCD34D",borderRadius:20,width:`${Math.min((earnedXP/(nextReward.xp))*100,100)}%` }}/>
+              </div>
+            </div>
+          )}
+
           <div style={{ display:"flex",gap:8,flexWrap:"wrap" }}>
             {[
               ["⚡ "+earnedXP,"XP","rgba(252,211,77,0.25)","#FCD34D"],
@@ -294,14 +325,14 @@ export default function App() {
       <div style={{ maxWidth:860,margin:"0 auto",padding:"18px 14px" }}>
 
         {/* ══ CALENDAR ══ */}
-        {view==="calendar" && (<>
+        {view==="calendar"&&(<>
           <div style={{ display:"flex",gap:7,flexWrap:"wrap",marginBottom:16 }}>
             {[["all","All"],["exam","🎯 Exams"],["brand","🌟 Brand"],["reading","📚 Readings"],["cia","🏆 CIA"],["tech","🤖 Tech/AI"],["audit","🔍 Audit"],["admission","🎓 Admission"]].map(([id,l])=>(
               <button key={id} onClick={()=>setFilter(id)} style={{ padding:"5px 12px",borderRadius:20,border:"none",cursor:"pointer",fontSize:11,fontWeight:600,background:filter===id?"#7C3AED":"#EDE9FE",color:filter===id?"#fff":"#4C1D95" }}>{l}</button>
             ))}
           </div>
           {years.map(year=>{
-            const yearMonths = allMonths.filter(m=>m.startsWith(year));
+            const yearMonths=allMonths.filter(m=>m.startsWith(year));
             return (
               <div key={year} style={{ marginBottom:26 }}>
                 <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:12 }}>
@@ -372,21 +403,20 @@ export default function App() {
         {/* ══ BADGES ══ */}
         {view==="badges"&&(
           <div>
-            {/* Digital Assurance Leader — Final Achievement */}
-            <div style={{ background: dalDone?"linear-gradient(135deg,#FFF7ED,#FEF3C7)":"#F8FAFC", border:`2px solid ${dalDone?"#EA580C":"#E2E8F0"}`, borderRadius:16, padding:"20px 18px", marginBottom:24, boxShadow:dalDone?"0 8px 24px rgba(234,88,12,0.2)":"none" }}>
+            {/* DAL Card */}
+            <div style={{ background:dalDone?"linear-gradient(135deg,#FFF7ED,#FEF3C7)":"#F8FAFC",border:`2px solid ${dalDone?"#EA580C":"#E2E8F0"}`,borderRadius:16,padding:"20px 18px",marginBottom:24,boxShadow:dalDone?"0 8px 24px rgba(234,88,12,0.2)":"none" }}>
               <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:14 }}>
-                <div style={{ fontSize:36, filter:dalDone?"none":"grayscale(1) opacity(0.3)" }}>🌟</div>
+                <div style={{ fontSize:36,filter:dalDone?"none":"grayscale(1) opacity(0.3)" }}>🌟</div>
                 <div>
                   <div style={{ fontWeight:800,fontSize:16,color:dalDone?"#7C2D12":"#94A3B8" }}>Digital Assurance Leader</div>
                   <div style={{ fontSize:11,color:dalDone?"#EA580C":"#CBD5E1",marginTop:2 }}>The ultimate achievement — combines everything</div>
                 </div>
                 {dalDone&&<div style={{ marginLeft:"auto",fontSize:24 }}>🎉</div>}
               </div>
-              {/* Progress bar */}
               <div style={{ background:"#E2E8F0",borderRadius:20,height:8,marginBottom:10,overflow:"hidden" }}>
                 <div style={{ height:"100%",borderRadius:20,background:dalDone?"linear-gradient(90deg,#EA580C,#F59E0B)":"#EA580C",width:`${dalPct}%`,transition:"width 0.5s" }}/>
               </div>
-              <div style={{ fontSize:10,color:"#94A3B8",marginBottom:12,textAlign:"right" }}>{dalProgress}/{DAL_REQUIRES.length} requirements · {dalPct}%</div>
+              <div style={{ fontSize:10,color:"#94A3B8",marginBottom:12,textAlign:"right" }}>{dalProgress}/{DAL_REQUIRES.length} · {dalPct}%</div>
               <div style={{ display:"flex",flexWrap:"wrap",gap:7 }}>
                 {DAL_REQUIRES.map(r=>(
                   <div key={r.id} style={{ display:"flex",alignItems:"center",gap:5,background:done[r.id]?"#DCFCE7":"#F1F5F9",borderRadius:20,padding:"4px 10px" }}>
@@ -424,29 +454,42 @@ export default function App() {
           <div>
             <div style={{ background:"#fff",border:"1px solid #E2E8F0",borderRadius:11,padding:"14px 16px",marginBottom:18 }}>
               <div style={{ display:"flex",justifyContent:"space-between",marginBottom:7 }}>
-                <span style={{ fontWeight:700,color:"#0F172A",fontSize:12 }}>⚡ XP Progress</span>
-                <span style={{ fontWeight:700,color:"#78350F",fontSize:12 }}>{earnedXP}/{TOTAL_POSSIBLE}</span>
+                <span style={{ fontWeight:700,color:"#0F172A",fontSize:12 }}>⚡ {earnedXP} / {TOTAL_POSSIBLE} XP</span>
+                <span style={{ fontWeight:600,color:"#94A3B8",fontSize:11 }}>{pct}%</span>
               </div>
-              <div style={{ background:"#F1F5F9",borderRadius:20,height:11,overflow:"hidden",marginBottom:3 }}><div style={{ height:"100%",borderRadius:20,background:"linear-gradient(90deg,#FCD34D,#F59E0B)",width:`${pct}%`,transition:"width 0.5s" }}/></div>
-              <div style={{ fontSize:10,color:"#94A3B8",textAlign:"right" }}>{pct}%</div>
+              <div style={{ background:"#F1F5F9",borderRadius:20,height:11,overflow:"hidden",position:"relative" }}>
+                <div style={{ height:"100%",borderRadius:20,background:"linear-gradient(90deg,#FCD34D,#F59E0B)",width:`${pct}%`,transition:"width 0.5s" }}/>
+                {/* Reward markers */}
+                {REWARDS.map(r=>(
+                  <div key={r.xp} style={{ position:"absolute",top:0,left:`${(r.xp/TOTAL_POSSIBLE)*100}%`,width:2,height:"100%",background:earnedXP>=r.xp?"#15803D":"#CBD5E1",transform:"translateX(-50%)" }}/>
+                ))}
+              </div>
+              <div style={{ display:"flex",justifyContent:"space-between",marginTop:6 }}>
+                {REWARDS.map(r=>(
+                  <div key={r.xp} style={{ fontSize:8,color:earnedXP>=r.xp?"#15803D":"#CBD5E1",fontWeight:600,textAlign:"center" }}>{r.icon}</div>
+                ))}
+              </div>
             </div>
-            {REWARDS.map(r=>{
-              const unlocked=unlockedR(r);
-              return (
-                <div key={r.xp} style={{ background:unlocked?r.bg:"#F8FAFC",border:`2px solid ${unlocked?r.border:"#E2E8F0"}`,borderRadius:13,padding:"16px 18px",display:"flex",alignItems:"center",gap:14,marginBottom:10,boxShadow:unlocked?`0 4px 16px ${r.border}25`:"none" }}>
-                  <div style={{ fontSize:40,filter:unlocked?"none":"grayscale(1) opacity(0.2)" }}>{r.icon}</div>
-                  <div style={{ flex:1 }}>
-                    <div style={{ fontWeight:800,fontSize:16,color:unlocked?r.color:"#94A3B8" }}>{r.title}</div>
-                    <div style={{ fontSize:11,color:unlocked?r.color:"#CBD5E1",marginTop:2 }}>Unlock at ⚡{r.xp} XP</div>
-                    {!unlocked&&<div style={{ marginTop:7 }}>
-                      <div style={{ background:"#E2E8F0",borderRadius:20,height:5,overflow:"hidden" }}><div style={{ height:"100%",background:r.border,borderRadius:20,width:`${Math.min((earnedXP/r.xp)*100,100)}%` }}/></div>
-                      <div style={{ fontSize:10,color:"#94A3B8",marginTop:3 }}>{r.xp-earnedXP} XP to go</div>
-                    </div>}
+
+            <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
+              {REWARDS.map(r=>{
+                const unlocked=unlockedR(r);
+                return (
+                  <div key={r.xp} style={{ background:unlocked?r.bg:"#F8FAFC",border:`2px solid ${unlocked?r.border:"#E2E8F0"}`,borderRadius:13,padding:"14px 16px",display:"flex",alignItems:"center",gap:14,boxShadow:unlocked?`0 4px 16px ${r.border}25`:"none",transition:"all 0.3s" }}>
+                    <div style={{ fontSize:34,filter:unlocked?"none":"grayscale(1) opacity(0.2)" }}>{r.icon}</div>
+                    <div style={{ flex:1 }}>
+                      <div style={{ fontWeight:800,fontSize:15,color:unlocked?r.color:"#94A3B8" }}>{r.title}</div>
+                      <div style={{ fontSize:11,color:unlocked?r.color:"#CBD5E1",marginTop:1 }}>⚡ {r.xp} XP</div>
+                      {!unlocked&&<div style={{ marginTop:6 }}>
+                        <div style={{ background:"#E2E8F0",borderRadius:20,height:4,overflow:"hidden" }}><div style={{ height:"100%",background:r.border,borderRadius:20,width:`${Math.min((earnedXP/r.xp)*100,100)}%` }}/></div>
+                        <div style={{ fontSize:10,color:"#94A3B8",marginTop:2 }}>{r.xp-earnedXP} XP to go</div>
+                      </div>}
+                    </div>
+                    {unlocked&&<div style={{ fontSize:22 }}>🎉</div>}
                   </div>
-                  {unlocked&&<div style={{ fontSize:24 }}>🎉</div>}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         )}
 
